@@ -1,2 +1,0 @@
-# Thuabc.github.io
-Blogs
