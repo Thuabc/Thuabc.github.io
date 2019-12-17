@@ -1,22 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://thuabc.github.io</id>
-    <title>Gridea</title>
-    <updated>2019-12-16T13:59:05.401Z</updated>
+    <title>Tanghua&apos;s Blogs</title>
+    <updated>2019-12-17T06:39:10.792Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://thuabc.github.io"/>
     <link rel="self" href="https://thuabc.github.io/atom.xml"/>
-    <subtitle>温故而知新</subtitle>
+    <subtitle>学而不思则罔</subtitle>
     <logo>https://thuabc.github.io/images/avatar.png</logo>
     <icon>https://thuabc.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2019, Gridea</rights>
+    <rights>All rights reserved 2019, Tanghua&apos;s Blogs</rights>
     <entry>
-        <title type="html"><![CDATA[ListNode--Leetcode--Java]]></title>
+        <title type="html"><![CDATA[Binary Sort]]></title>
+        <id>https://thuabc.github.io/post/er-fen-cha-zhao</id>
+        <link href="https://thuabc.github.io/post/er-fen-cha-zhao">
+        </link>
+        <updated>2019-12-16T15:56:57.000Z</updated>
+        <content type="html"><![CDATA[<!-- more -->
+<p>二分查找也称折半查找（Binary Search），它是一种效率较高的查找方法，前提是数据结构必须先排好序，可以在数据规模的对数时间复杂度内完成查找。但是，二分查找要求线性表具有有随机访问的特点（例如数组），也要求线性表能够根据中间元素的特点推测它两侧元素的性质，以达到缩减问题规模的效果。因此，折半查找方法适用于不经常变动而查找频繁的有序列表。</p>
+<pre><code class="language-java">//不使用递归实现（while循环）
+/**
+ * 二分查找，找到该值在数组中的下标，否则返回-1
+ */
+static int binarySerach(int[] array, int key) {
+    int left = 0;
+    int right = array.length - 1;
+    
+    if(key &lt; arr[low] || key &gt; arr[high] || low &gt; high){
+			return -1;				
+		}
+    
+    // 这里必须是 &lt;=
+    while (left &lt;= right) {
+        int mid = (left + right) / 2;
+        if (array[mid] == key) {
+            return mid;
+        }
+        else if (array[mid] &lt; key) {
+            left = mid + 1;
+        }
+        else {
+            right = mid - 1;
+        }
+    }
+
+    return -1;
+}
+</code></pre>
+<pre><code class="language-java">//递归实现
+public static int recursionBinarySearch(int[] arr,int key,int low,int high){
+		
+		if(key &lt; arr[low] || key &gt; arr[high] || low &gt; high){
+			return -1;				
+		}
+		
+		int middle = (low + high) / 2;			//初始中间位置
+		if(arr[middle] &gt; key){
+			//比关键字大则关键字在左区域
+			return recursionBinarySearch(arr, key, low, middle - 1);
+		}else if(arr[middle] &lt; key){
+			//比关键字小则关键字在右区域
+			return recursionBinarySearch(arr, key, middle + 1, high);
+		}else {
+			return middle;
+		}	
+		
+	}
+</code></pre>
+<h3 id="二分查找总结">二分查找总结</h3>
+<pre><code class="language-java">// 这里必须是 &lt;=
+while (left &lt;= right) {
+    int mid = (left + right) / 2;
+    if (array[mid] ? key) {//2.判断出比较符号
+        //... right = mid - 1;
+    }
+    else {
+        // ... left = mid + 1;
+    }
+}
+return xxx;//1.首先判断返回left，还是right
+</code></pre>
+<h3 id="时间复杂度">时间复杂度</h3>
+<p>采用的是分治策略</p>
+<p>最坏的情况下两种方式时间复杂度一样：O(log2N)</p>
+<p>最好情况下为：O(1)</p>
+<h3 id="空间复杂度">空间复杂度</h3>
+<p>算法的空间复杂度并不是计算实际占用的空间，而是计算整个算法的辅助空间单元的个数</p>
+<p>非递归方式：<br>
+由于辅助空间是常数级别的，所以：<br>
+空间复杂度是O(1);</p>
+<p>递归方式：</p>
+<p>递归的次数和深度都是log2 N,每次所需要的辅助空间都是常数级别的，所以：<br>
+空间复杂度：O(log2N )</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ListNode-Leetcode]]></title>
         <id>https://thuabc.github.io/post/listnode-leetcode-java</id>
         <link href="https://thuabc.github.io/post/listnode-leetcode-java">
         </link>
         <updated>2019-12-16T12:39:26.000Z</updated>
-        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://thuabc.github.io/post-images/1576500728965.jpg" alt=""></figure>
+        <content type="html"><![CDATA[<!-- more -->
 <h3 id="leetcode-19-删除链表的倒数第n个节点">😃LeetCode <a href="https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/">19. 删除链表的倒数第N个节点</a></h3>
 <pre><code class="language-java">//两次遍历法
 class Solution {
@@ -176,12 +260,12 @@ class Solution {
         <link href="https://thuabc.github.io/post/hello-gridea">
         </link>
         <updated>2018-12-11T16:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
+        <summary type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://thuabc.github.io/post-images/1576513014433.png" alt=""></figure>
 ]]></summary>
-        <content type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
+        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://thuabc.github.io/post-images/1576513014433.png" alt=""></figure>
 <!-- more -->
+<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
+✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
 <p><a href="https://github.com/getgridea/gridea">Github</a><br>
 <a href="https://gridea.dev/">Gridea 主页</a><br>
 <a href="http://fehey.com/">示例网站</a></p>
