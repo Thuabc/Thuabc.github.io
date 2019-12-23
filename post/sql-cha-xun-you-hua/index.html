@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>关于 | Tanghua&#39;s Blogs</title>
+<title>SQL查询优化 | Tanghua&#39;s Blogs</title>
 <meta name="description" content="学而不思则罔" />
 <link rel="shortcut icon" href="https://thuabc.github.io/favicon.ico?v=1577088844604">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -77,11 +77,11 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              关于
+              SQL查询优化
             </h2>
             <div class="post-info">
               <span>
-                2019-01-25
+                2019-12-20
               </span>
               <span>
                 1 min read
@@ -91,32 +91,38 @@
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <blockquote>
-<p>欢迎来到我的小站呀，很高兴遇见你！🤝</p>
-</blockquote>
-<h2 id="关于本站">🏠 关于本站</h2>
-<h2 id="博主是谁">👨‍💻 博主是谁</h2>
-<h2 id="兴趣爱好">⛹ 兴趣爱好</h2>
-<h2 id="联系我呀">📬 联系我呀</h2>
+                <!-- more -->
+<ol>
+<li>select子句中尽量避免使用*</li>
+<li>尽量避免使用in和not in<br>
+in和not in会导致数据库进行全表搜索，增加运行时间。<br>
+where 学号 between 8 and 9 代替 where 学号 in (8, 9)</li>
+<li>尽量避免使用or<br>
+or同样会导致数据库进项全表搜索。用union代替</li>
+<li>使用limit子句限制返回的数据行数</li>
+<li>where子句比较符号左侧避免函数<br>
+因为这会导致数据库引擎进行全表扫描，从而增加运行时间。<br>
+where 成绩 + 5 &gt; 90 （表达式在比较符号的左侧）<br>
+优化：where 成绩 &gt; 90 – 5（表达式在比较符号的右侧）</li>
+</ol>
 
               </div>
               <div class="toc-container">
-                <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#%E5%85%B3%E4%BA%8E%E6%9C%AC%E7%AB%99">🏠 关于本站</a></li>
-<li><a href="#%E5%8D%9A%E4%B8%BB%E6%98%AF%E8%B0%81">👨‍💻 博主是谁</a></li>
-<li><a href="#%E5%85%B4%E8%B6%A3%E7%88%B1%E5%A5%BD">⛹ 兴趣爱好</a></li>
-<li><a href="#%E8%81%94%E7%B3%BB%E6%88%91%E5%91%80">📬 联系我呀</a></li>
-</ul>
-</li>
-</ul>
-
+                
               </div>
             </div>
           </article>
         </div>
 
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://thuabc.github.io/post/java-duo-xian-cheng">
+              <h3 class="post-title">
+                JAVA多线程
+              </h3>
+            </a>
+          </div>
         
 
         
