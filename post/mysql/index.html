@@ -1,97 +1,100 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" >
+
 <title>MySQL | Tanghua&#39;s Blogs</title>
-<meta name="description" content="学而不思则罔" />
-<link rel="shortcut icon" href="https://thuabc.github.io/favicon.ico?v=1579100103395">
+<meta name="description" content="学而不思则罔">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://thuabc.github.io/favicon.ico?v=1579100445063">
+
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://thuabc.github.io/styles/main.css">
 
-<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
 
   </head>
   <body>
-    <div class="main">
-      <div class="main-content">
-        <div class="site-header">
-  <a href="https://thuabc.github.io">
-  <img class="avatar" src="https://thuabc.github.io/images/avatar.png?v=1579100103395" alt="">
-  </a>
-  <h1 class="site-title">
-    Tanghua&#39;s Blogs
-  </h1>
-  <p class="site-description">
-    学而不思则罔
-  </p>
-  <div class="menu-container">
-    
-      
-        <a href="/" class="menu">
-          首页
-        </a>
-      
-    
-      
-        <a href="/archives" class="menu">
-          归档
-        </a>
-      
-    
-      
-        <a href="/tags" class="menu">
-          标签
-        </a>
-      
-    
-      
-        <a href="/post/about" class="menu">
-          关于
-        </a>
-      
-    
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://thuabc.github.io">Tanghua&#39;s Blogs</a></h3>
   </div>
-  <div class="social-container">
-    
-      
-        <a href="https://github.com/Thuabc" target="_blank">
-          <i class="fab fa-github"></i>
-        </a>
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  </div>
-</div>
-
-        <div class="post-detail">
-          <article class="post">
-            <h2 class="post-title">
-              MySQL
-            </h2>
-            <div class="post-info">
-              <span>
-                2019-12-18
-              </span>
-              <span>
-                18 min read
-              </span>
-              
-            </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
             
-            <div class="post-content-wrapper">
-              <div class="post-content">
-                <!-- more -->
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>MySQL</h1>
+            <p class="article-meta">
+              2019-12-18
+              
+            </p>
+            
+            <div class="post-content">
+              <!-- more -->
 <!-- GFM-TOC -->
 <ul>
 <li><a href="#%E4%B8%80%E7%B4%A2%E5%BC%95">一、索引</a>
@@ -412,190 +415,193 @@ SELECT * FROM post WHERE post.id IN (123,456,567,9098,8904);
 </ul>
 <div align="center"><img width="320px" src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/githubio/公众号二维码-2.png"></img></div>
 
-              </div>
-              <div class="toc-container">
-                <ul class="markdownIt-TOC">
-<li><a href="#%E4%B8%80-%E7%B4%A2%E5%BC%95">一、索引</a>
-<ul>
-<li><a href="#b-tree-%E5%8E%9F%E7%90%86">B+ Tree 原理</a>
-<ul>
-<li><a href="#1-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">1. 数据结构</a></li>
-<li><a href="#2-%E6%93%8D%E4%BD%9C">2. 操作</a></li>
-<li><a href="#3-%E4%B8%8E%E7%BA%A2%E9%BB%91%E6%A0%91%E7%9A%84%E6%AF%94%E8%BE%83">3. 与红黑树的比较</a></li>
-</ul>
-</li>
-<li><a href="#mysql-%E7%B4%A2%E5%BC%95">MySQL 索引</a>
-<ul>
-<li><a href="#1-btree-%E7%B4%A2%E5%BC%95">1. B+Tree 索引</a></li>
-<li><a href="#2-%E5%93%88%E5%B8%8C%E7%B4%A2%E5%BC%95">2. 哈希索引</a></li>
-<li><a href="#3-%E5%85%A8%E6%96%87%E7%B4%A2%E5%BC%95">3. 全文索引</a></li>
-<li><a href="#4-%E7%A9%BA%E9%97%B4%E6%95%B0%E6%8D%AE%E7%B4%A2%E5%BC%95">4. 空间数据索引</a></li>
-</ul>
-</li>
-<li><a href="#%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96">索引优化</a>
-<ul>
-<li><a href="#1-%E7%8B%AC%E7%AB%8B%E7%9A%84%E5%88%97">1. 独立的列</a></li>
-<li><a href="#2-%E5%A4%9A%E5%88%97%E7%B4%A2%E5%BC%95">2. 多列索引</a></li>
-<li><a href="#3-%E7%B4%A2%E5%BC%95%E5%88%97%E7%9A%84%E9%A1%BA%E5%BA%8F">3. 索引列的顺序</a></li>
-<li><a href="#4-%E5%89%8D%E7%BC%80%E7%B4%A2%E5%BC%95">4. 前缀索引</a></li>
-<li><a href="#5-%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95">5. 覆盖索引</a></li>
-</ul>
-</li>
-<li><a href="#%E7%B4%A2%E5%BC%95%E7%9A%84%E4%BC%98%E7%82%B9">索引的优点</a></li>
-<li><a href="#%E7%B4%A2%E5%BC%95%E7%9A%84%E4%BD%BF%E7%94%A8%E6%9D%A1%E4%BB%B6">索引的使用条件</a></li>
-</ul>
-</li>
-<li><a href="#%E4%BA%8C-%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96">二、查询性能优化</a>
-<ul>
-<li><a href="#%E4%BD%BF%E7%94%A8-explain-%E8%BF%9B%E8%A1%8C%E5%88%86%E6%9E%90">使用 Explain 进行分析</a></li>
-<li><a href="#%E4%BC%98%E5%8C%96%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE">优化数据访问</a>
-<ul>
-<li><a href="#1-%E5%87%8F%E5%B0%91%E8%AF%B7%E6%B1%82%E7%9A%84%E6%95%B0%E6%8D%AE%E9%87%8F">1. 减少请求的数据量</a></li>
-<li><a href="#2-%E5%87%8F%E5%B0%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E6%89%AB%E6%8F%8F%E7%9A%84%E8%A1%8C%E6%95%B0">2. 减少服务器端扫描的行数</a></li>
-</ul>
-</li>
-<li><a href="#%E9%87%8D%E6%9E%84%E6%9F%A5%E8%AF%A2%E6%96%B9%E5%BC%8F">重构查询方式</a>
-<ul>
-<li><a href="#1-%E5%88%87%E5%88%86%E5%A4%A7%E6%9F%A5%E8%AF%A2">1. 切分大查询</a></li>
-<li><a href="#2-%E5%88%86%E8%A7%A3%E5%A4%A7%E8%BF%9E%E6%8E%A5%E6%9F%A5%E8%AF%A2">2. 分解大连接查询</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#%E4%B8%89-%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E">三、存储引擎</a>
-<ul>
-<li><a href="#innodb">InnoDB</a></li>
-<li><a href="#myisam">MyISAM</a></li>
-<li><a href="#%E6%AF%94%E8%BE%83">比较</a></li>
-</ul>
-</li>
-<li><a href="#%E5%9B%9B-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">四、数据类型</a>
-<ul>
-<li><a href="#%E6%95%B4%E5%9E%8B">整型</a></li>
-<li><a href="#%E6%B5%AE%E7%82%B9%E6%95%B0">浮点数</a></li>
-<li><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2">字符串</a></li>
-<li><a href="#%E6%97%B6%E9%97%B4%E5%92%8C%E6%97%A5%E6%9C%9F">时间和日期</a>
-<ul>
-<li><a href="#1-datetime">1. DATETIME</a></li>
-<li><a href="#2-timestamp">2. TIMESTAMP</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#%E4%BA%94-%E5%88%87%E5%88%86">五、切分</a>
-<ul>
-<li><a href="#%E6%B0%B4%E5%B9%B3%E5%88%87%E5%88%86">水平切分</a></li>
-<li><a href="#%E5%9E%82%E7%9B%B4%E5%88%87%E5%88%86">垂直切分</a></li>
-<li><a href="#sharding-%E7%AD%96%E7%95%A5">Sharding 策略</a></li>
-<li><a href="#sharding-%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98">Sharding 存在的问题</a>
-<ul>
-<li><a href="#1-%E4%BA%8B%E5%8A%A1%E9%97%AE%E9%A2%98">1. 事务问题</a></li>
-<li><a href="#2-%E8%BF%9E%E6%8E%A5">2. 连接</a></li>
-<li><a href="#3-id-%E5%94%AF%E4%B8%80%E6%80%A7">3. ID 唯一性</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#%E5%85%AD-%E5%A4%8D%E5%88%B6">六、复制</a>
-<ul>
-<li><a href="#%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6">主从复制</a></li>
-<li><a href="#%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB">读写分离</a></li>
-</ul>
-</li>
-<li><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">参考资料</a></li>
-</ul>
-
-              </div>
             </div>
           </article>
         </div>
-
-        
-          <div class="next-post">
-            <div class="next">下一篇</div>
-            <a href="https://thuabc.github.io/post/sql">
-              <h3 class="post-title">
-                SQL
-              </h3>
-            </a>
-          </div>
-        
-
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://thuabc.github.io/post/sql">
+                <h3 class="post-title">
+                  SQL
+                </h3>
+              </a>
+            </div>
+          
+        </div>
         
           
-            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-
-<div id="gitalk-container"></div>
-
-<script>
-
-  var gitalk = new Gitalk({
-    clientID: '',
-    clientSecret: '',
-    repo: '',
-    owner: '',
-    admin: [''],
-    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
-    distractionFreeMode: false  // Facebook-like distraction free mode
-  })
-
-  gitalk.render('gitalk-container')
-
-</script>
-
+            <div class="paper" data-aos="fade-in">
+              <div id="gitalk-container"></div>
+            </div>
           
 
           
         
+      </div>
 
-        <div class="site-footer">
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
-  <a class="rss" href="https://thuabc.github.io/atom.xml" target="_blank">RSS</a>
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://thuabc.github.io/images/avatar.png?v=1579100445063" class="no-responsive avatar">
+    <div class="text-muted">学而不思则罔</div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://thuabc.github.io/post/dong-tai-gui-hua">动态规划</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://thuabc.github.io/post/sql-cha-xun-you-hua">SQL查询优化</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://thuabc.github.io/post/java-duo-xian-cheng">JAVA多线程</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://thuabc.github.io/post/java-bing-fa">JAVA并发</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://thuabc.github.io/post/mysql">MySQL</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://thuabc.github.io/post/sql">SQL</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://thuabc.github.io/post/shu-ju-ku-xi-tong-yuan-li">数据库系统原理</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://thuabc.github.io/post/er-cha-shu-bian-li">遍历二叉树</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://thuabc.github.io/post/java-ji-he">JAVA集合</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://thuabc.github.io/post/er-fen-cha-zhao">二分查找</a>
+            </li>
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://thuabc.github.io/tag/ZCzPPV9dF" class="badge secondary">
+          二叉树
+        </a>
+      
+        <a href="https://thuabc.github.io/tag/80Ekhx-Uq" class="badge secondary">
+          排序
+        </a>
+      
+        <a href="https://thuabc.github.io/tag/9b4lsVXu1" class="badge ">
+          链表
+        </a>
+      
+        <a href="https://thuabc.github.io/tag/yKfpshaQa" class="badge secondary">
+          Gridea
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://thuabc.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
 </div>
 
-<script>
-  hljs.initHighlightingOnLoad()
 
-  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+    </div>
 
-  // This should probably be throttled.
-  // Especially because it triggers during smooth scrolling.
-  // https://lodash.com/docs/4.17.10#throttle
-  // You could do like...
-  // window.addEventListener("scroll", () => {
-  //    _.throttle(doThatStuff, 100);
-  // });
-  // Only not doing it here to keep this Pen dependency-free.
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 
-  window.addEventListener("scroll", event => {
-    let fromTop = window.scrollY;
+<script type="application/javascript">
 
-    mainNavLinks.forEach((link, index) => {
-      let section = document.getElementById(decodeURI(link.hash).substring(1));
-      let nextSection = null
-      if (mainNavLinks[index + 1]) {
-        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
-      }
-      if (section.offsetTop <= fromTop) {
-        if (nextSection) {
-          if (nextSection.offsetTop > fromTop) {
-            link.classList.add("current");
-          } else {
-            link.classList.remove("current");    
-          }
-        } else {
-          link.classList.add("current");
-        }
-      } else {
-        link.classList.remove("current");
-      }
-    });
-  });
+AOS.init();
+
+hljs.initHighlightingOnLoad()
 
 </script>
 
-      </div>
-    </div>
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: '',
+        owner: '',
+        admin: [''],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
   </body>
 </html>
