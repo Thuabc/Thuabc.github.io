@@ -2,14 +2,169 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://thuabc.github.io</id>
     <title>Tanghua&apos;s Blogs</title>
-    <updated>2019-12-23T08:14:55.139Z</updated>
+    <updated>2020-01-15T14:55:09.117Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://thuabc.github.io"/>
     <link rel="self" href="https://thuabc.github.io/atom.xml"/>
     <subtitle>学而不思则罔</subtitle>
     <logo>https://thuabc.github.io/images/avatar.png</logo>
     <icon>https://thuabc.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2019, Tanghua&apos;s Blogs</rights>
+    <rights>All rights reserved 2020, Tanghua&apos;s Blogs</rights>
+    <entry>
+        <title type="html"><![CDATA[动态规划]]></title>
+        <id>https://thuabc.github.io/post/dong-tai-gui-hua</id>
+        <link href="https://thuabc.github.io/post/dong-tai-gui-hua">
+        </link>
+        <updated>2020-01-15T14:44:52.000Z</updated>
+        <content type="html"><![CDATA[<!-- more -->
+<ol start="5">
+<li>最长回文子串</li>
+</ol>
+<pre><code class="language-python">class Solution:
+    def longestPalindrome(self, s: str) -&gt; str:
+        size = len(s)
+        if size &lt;=1:
+            return s
+        # 二维 dp 问题
+        # 状态：dp[l][r]: 表示子字符串s[l:r+1] 是不是回文串
+        cur_longest = 1 
+        res = s[0]
+        dp = [[False for _ in range(size)] for _ in range(size)]
+        for r in range(1, size):
+            for l in range(r):
+                # 状态转移方程：如果头尾字符相等并且中间也是回文
+                # 在头尾字符相等的前提下，如果收缩以后不构成区间（最多只有 1 个元素），直接返回 True 即可
+                # 否则要继续看收缩以后的区间的回文性
+                # 重点理解 or 的短路性质在这里的作用
+                if s[l]==s[r] and (r - l &lt;= 2 or dp[l + 1][r - 1]):
+                    dp[l][r] = True
+                    cur_len = r - l +1
+                    if cur_len &gt; cur_longest:
+                        cur_longest = cur_len
+                        res = s[l : r+1]
+        return res
+</code></pre>
+<ol start="53">
+<li>最大子序和</li>
+</ol>
+<pre><code class="language-python">class Solution:
+    def maxSubArray(self, nums: List[int]) -&gt; int:
+    ''' 
+        size  = len(nums)
+        if size == 0:
+            return  0
+        #状态dp[i]表示以 nums[i] 结尾的连续子数组(这些连续子数组均包括数nums[i])的最大和，
+        # 而不是截止到nums[i]的最大和，最大的可能在前面，后面通过max(dp)求得
+        #当然也可以通过一个中间变量就得截止目前的最大值，res = max(res, pre)，这样做的好处又可以减少空间复杂度
+        #有些动态规划题目状态dp[i][j]就是截止目前最优，最后dp[-1][-1]就是所得的最优值，如300题（编辑距离）1143题（最长公共子序列长度）
+        #有些动态规划题目状态dp[i]中的i表示序列的第i个元素(即nums[i-1])，所以dp长度为n+1，这时需要对dp[0]进行初始化，如300题（编辑距离）1143题（最长公共子序列长度）
+        #动态规划迭代时还需注意i从0开始还是从1开始
+        dp = [0 for _ in range(size)]
+        dp[0] = nums[0]
+        dp[i] 的值要看 dp[i - 1]，因为 nums[i] 一定被选取，那么 dp[i - 1] 的正负就作为分类的标准。
+
+        #第一种状态转移方程。
+        for i in range(1, size):
+            if dp[i - 1] &gt;= 0:
+                dp[i] = dp[i - 1] + nums[i]
+            else:
+                dp[i] = nums[i]
+        return max(dp)
+
+        #第二种状态转移方程
+        for i in range(1, size):
+            dp[i] = max(dp[i-1] + nums[i], nums[i])
+        return max(dp)
+        #时间复杂度：O(N)
+        #空间复杂度：O(N)
+
+        #空间复杂度O(1)解法：
+    def maxSubArray(self, nums: List[int]) -&gt; int:
+        size = len(nums)
+        if size == 0:
+            return 0
+        # 起名叫 pre 表示的意思是“上一个状态”的值
+        pre = nums[0]
+        res = pre
+        for i in range(1, size):
+            pre = max(nums[i], pre + nums[i])
+            res = max(res, pre)
+        return res
+        '''
+
+        size = len(nums)
+        if size == 0:
+            return 0
+        sum = 0
+        max_sum = nums[0]
+        for i  in range(size):
+            sum += nums[i]
+            if sum &gt; max_sum:
+                max_sum = sum
+            if sum &lt; 0:
+                sum = 0
+        return max_sum
+</code></pre>
+<ol start="72">
+<li>编辑距离</li>
+</ol>
+<pre><code class="language-python">class Solution:
+    def minDistance(self, word1: str, word2: str) -&gt; int:
+        n1 = len(word1)
+        n2 = len(word2)
+        dp = [[0]*(n2 + 1) for _ in range(n1 + 1)]#定义二维数组dp[i][j]
+        #dp[i][j]表示使word1前i个元素与word2前j个元素相同要对word1进行的最少操作次数
+        for j in range(1, n2 + 1):
+            dp[0][j] = dp[0][j - 1] + 1#第一行
+        for i in range(1, n1 + 1):
+            dp[i][0] = dp[i - 1][0] + 1#第一列
+        for i in range(1, n1+1):
+            for j in range(1, n2+1):
+                if word1[i-1]==word2[j-1]:#注意这里要-1
+                    dp[i][j] = dp[i-1][j-1]
+                else:
+                    dp[i][j] = min(dp[i-1][j-1], dp[i-1][j], dp[i][j-1]) + 1
+        return dp[-1][-1]
+</code></pre>
+<ol start="300">
+<li>最长上升子序列</li>
+</ol>
+<pre><code class="language-python">class Solution:
+    def lengthOfLIS(self, nums: List[int]) -&gt; int:
+        size = len(nums)
+        if size &lt;= 1:
+            return size
+        #状态dp[i]表示以nums[i]结尾的递增子序列的元素最多个数
+        dp =[1] * size #初始为1,含义是每个元素都至少可以单独成为子序列
+        for i in range(1, size):
+            for j in range(i):#两层循环
+                if nums[i] &gt; nums[j]:
+                    #状态转移方程
+                    dp[i] = max(dp[i], dp[j] + 1 )#即求dp[j]+1的最大值for j in range(i)
+        return max(dp)
+#时间复杂度应该为 O(n^2)
+#动态规划+二分查找法可将时间复杂度降为O(nlogn)
+</code></pre>
+<ol start="1143">
+<li>最长公共子序列</li>
+</ol>
+<pre><code class="language-python">class Solution:
+    def longestCommonSubsequence(self, text1: str, text2: str) -&gt; int:
+        if not text1 or not text2:
+            return 0
+        m = len(text1)
+        n = len(text2)
+        dp = [[0 for _ in range(n+1)] for _ in range(m+1)]
+        for i in range(1, m+1):
+            for j in range(1, n+1):
+                if text1[i-1]==text2[j-1]:
+                    dp[i][j]=dp[i-1][j-1]+1
+                else:
+                    dp[i][j]=max(dp[i-1][j],dp[i][j-1])
+        return dp[m][n]
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[SQL查询优化]]></title>
         <id>https://thuabc.github.io/post/sql-cha-xun-you-hua</id>
@@ -3282,166 +3437,6 @@ return xxx;//1.首先判断返回left，还是right
 <p>递归方式：</p>
 <p>递归的次数和深度都是log2 N,每次所需要的辅助空间都是常数级别的，所以：<br>
 空间复杂度：O(log2N )</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[链表-Leetcode]]></title>
-        <id>https://thuabc.github.io/post/listnode-leetcode-java</id>
-        <link href="https://thuabc.github.io/post/listnode-leetcode-java">
-        </link>
-        <updated>2019-12-16T12:39:26.000Z</updated>
-        <content type="html"><![CDATA[<!-- more -->
-<h3 id="leetcode-19-删除链表的倒数第n个节点">😃LeetCode <a href="https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/">19. 删除链表的倒数第N个节点</a></h3>
-<pre><code class="language-java">//两次遍历法
-class Solution {
-    public ListNode removeNthFromEnd(ListNode head, int n) {
-        ListNode dummy = new ListNode(0);
-        dummy.next = head;
-        int length  = 0;
-        ListNode first = head;
-        while (first != null) {
-            length++;
-            first = first.next;
-        }
-        length -= n;
-        first = dummy;
-        while (length &gt; 0) {
-            length--;
-            first = first.next;
-        }
-        first.next = first.next.next;
-        return dummy.next;
-    }
-}
-</code></pre>
-<h3 id="leetcode-24-两两交换链表中的节点">😁LeetCode <a href="https://leetcode-cn.com/problems/swap-nodes-in-pairs/">24. 两两交换链表中的节点</a></h3>
-<pre><code class="language-java">class Solution {
-    public ListNode swapPairs(ListNode head) {
-        //头插法
-        ListNode dumb = new ListNode(0);
-        dumb.next = head;
-        ListNode temp = dumb;
-        while(temp.next!=null&amp;&amp;temp.next.next!=null){
-            ListNode start = temp.next;
-            ListNode end = temp.next.next;
-            temp.next = end;
-            start.next = end.next;
-            end.next = start;
-            temp = start;
-        }
-        return dumb.next;   
-    }
-}
-</code></pre>
-<h3 id="leecode-83-删除排序链表中的重复元素">LeeCode <a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/">83. 删除排序链表中的重复元素</a></h3>
-<pre><code class="language-java">class Solution {
-    public ListNode deleteDuplicates(ListNode head) {
-        //这里不用哑结点
-        ListNode cur = head;
-        while(cur != null &amp;&amp; cur.next != null){
-            if(cur.next.val == cur.val){
-                cur.next = cur.next.next;
-            }else{
-                cur = cur.next;
-            }
-        }
-        return head;   
-    }
-}
-</code></pre>
-<h3 id="leetcode-141-环形链表">LeetCode <a href="https://leetcode-cn.com/problems/linked-list-cycle/">141. 环形链表</a></h3>
-<pre><code class="language-java"> //HashSet解法：add, remove,isEmpty,contains,clear,size
- /**
-public class Solution {
-    public boolean hasCycle(ListNode head) {
-       HashSet&lt;ListNode&gt; hasExist = new HashSet&lt;&gt;();
-       while(head != null){
-           if(hasExist.contains(head)){
-               return true;
-           }else{
-               hasExist.add(head);
-               head = head.next;
-           }
-       }
-        return false;
-    }
-}
- */
-//双指针解法
-public class Solution {
-    public boolean hasCycle(ListNode head) {
-        if(head==null||head.next==null){
-            return false;
-        }
-        //快慢指针
-        ListNode slow = head;
-        ListNode fast = head.next;
-        //循环终止条件：slow==fast
-        while(slow!=fast){
-            if(fast==null||fast.next==null){
-                return false;
-            }
-            slow = slow.next;
-            fast = fast.next.next;
-        }
-        return true;
-    }
-}
-</code></pre>
-<h3 id="leetcode-203-移除链表元素">LeetCode <a href="https://leetcode-cn.com/problems/remove-linked-list-elements/">203. 移除链表元素</a></h3>
-<pre><code class="language-java">//头插法
-class Solution {
-    public ListNode removeElements(ListNode head, int val) {
-        //因为head.val可能等于val,所以需要new一个哑结点，并且指向头结点
-        ListNode dumb = new ListNode(0);
-        dumb.next = head;
-        //用于遍历链表的指针
-        ListNode cur = dumb;
-        //循环条件cur.next!=null
-        while(cur.next!=null){
-            if(cur.next.val==val){
-                cur.next = cur.next.next;   
-            }else{//这里要用else,因为存在连续等于val的结点
-                cur = cur.next;
-            }
-        }
-        return dumb.next;     
-    }
-}
-</code></pre>
-<h3 id="leetcode-206-反转链表">LeetCode <a href="https://leetcode-cn.com/problems/reverse-linked-list/">206. 反转链表</a></h3>
-<pre><code class="language-java">//迭代法
-class Solution {
-    public ListNode reverseList(ListNode head) {
-        //头结点指向null
-        ListNode prev = null;
-        ListNode temp = head;
-        while(temp!=null){
-			ListNode nextTemp = temp.next;
-            temp.next = prev;
-            prev = temp;
-            temp = nextTemp;
-        }
-        return prev;
-    }
-}
-</code></pre>
-<h3 id="leetcode-876-链表的中间结点">LeetCode <a href="https://leetcode-cn.com/problems/middle-of-the-linked-list/">876. 链表的中间结点</a></h3>
-<pre><code class="language-java">class Solution {
-    public ListNode middleNode(ListNode head) {
-        //快慢指针
-        ListNode slow = head;
-        ListNode fast = head;
-        while(fast!=null&amp;&amp;fast.next!=null){
-            //慢指针走一步快指针走两步
-            slow = slow.next;
-            fast = fast.next.next;
-        }
-        return slow;  
-    }
-}
-</code></pre>
-<p>头插法，哑巴结点（dumb，dumb.next=head)，遍历指针（temp=head，或temp=dumb）(temp=temp.next），循环条件(temp!=null，temp.next!=null），快慢指针，删除结点（temp.next=temp.next.next）</p>
 ]]></content>
     </entry>
 </feed>

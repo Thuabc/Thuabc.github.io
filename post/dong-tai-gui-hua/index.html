@@ -1,0 +1,338 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>动态规划 | Tanghua&#39;s Blogs</title>
+<meta name="description" content="学而不思则罔" />
+<link rel="shortcut icon" href="https://thuabc.github.io/favicon.ico?v=1579100103395">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://thuabc.github.io/styles/main.css">
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://thuabc.github.io">
+  <img class="avatar" src="https://thuabc.github.io/images/avatar.png?v=1579100103395" alt="">
+  </a>
+  <h1 class="site-title">
+    Tanghua&#39;s Blogs
+  </h1>
+  <p class="site-description">
+    学而不思则罔
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Thuabc" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              动态规划
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-01-15
+              </span>
+              <span>
+                6 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <!-- more -->
+<ol start="5">
+<li>最长回文子串</li>
+</ol>
+<pre><code class="language-python">class Solution:
+    def longestPalindrome(self, s: str) -&gt; str:
+        size = len(s)
+        if size &lt;=1:
+            return s
+        # 二维 dp 问题
+        # 状态：dp[l][r]: 表示子字符串s[l:r+1] 是不是回文串
+        cur_longest = 1 
+        res = s[0]
+        dp = [[False for _ in range(size)] for _ in range(size)]
+        for r in range(1, size):
+            for l in range(r):
+                # 状态转移方程：如果头尾字符相等并且中间也是回文
+                # 在头尾字符相等的前提下，如果收缩以后不构成区间（最多只有 1 个元素），直接返回 True 即可
+                # 否则要继续看收缩以后的区间的回文性
+                # 重点理解 or 的短路性质在这里的作用
+                if s[l]==s[r] and (r - l &lt;= 2 or dp[l + 1][r - 1]):
+                    dp[l][r] = True
+                    cur_len = r - l +1
+                    if cur_len &gt; cur_longest:
+                        cur_longest = cur_len
+                        res = s[l : r+1]
+        return res
+</code></pre>
+<ol start="53">
+<li>最大子序和</li>
+</ol>
+<pre><code class="language-python">class Solution:
+    def maxSubArray(self, nums: List[int]) -&gt; int:
+    ''' 
+        size  = len(nums)
+        if size == 0:
+            return  0
+        #状态dp[i]表示以 nums[i] 结尾的连续子数组(这些连续子数组均包括数nums[i])的最大和，
+        # 而不是截止到nums[i]的最大和，最大的可能在前面，后面通过max(dp)求得
+        #当然也可以通过一个中间变量就得截止目前的最大值，res = max(res, pre)，这样做的好处又可以减少空间复杂度
+        #有些动态规划题目状态dp[i][j]就是截止目前最优，最后dp[-1][-1]就是所得的最优值，如300题（编辑距离）1143题（最长公共子序列长度）
+        #有些动态规划题目状态dp[i]中的i表示序列的第i个元素(即nums[i-1])，所以dp长度为n+1，这时需要对dp[0]进行初始化，如300题（编辑距离）1143题（最长公共子序列长度）
+        #动态规划迭代时还需注意i从0开始还是从1开始
+        dp = [0 for _ in range(size)]
+        dp[0] = nums[0]
+        dp[i] 的值要看 dp[i - 1]，因为 nums[i] 一定被选取，那么 dp[i - 1] 的正负就作为分类的标准。
+
+        #第一种状态转移方程。
+        for i in range(1, size):
+            if dp[i - 1] &gt;= 0:
+                dp[i] = dp[i - 1] + nums[i]
+            else:
+                dp[i] = nums[i]
+        return max(dp)
+
+        #第二种状态转移方程
+        for i in range(1, size):
+            dp[i] = max(dp[i-1] + nums[i], nums[i])
+        return max(dp)
+        #时间复杂度：O(N)
+        #空间复杂度：O(N)
+
+        #空间复杂度O(1)解法：
+    def maxSubArray(self, nums: List[int]) -&gt; int:
+        size = len(nums)
+        if size == 0:
+            return 0
+        # 起名叫 pre 表示的意思是“上一个状态”的值
+        pre = nums[0]
+        res = pre
+        for i in range(1, size):
+            pre = max(nums[i], pre + nums[i])
+            res = max(res, pre)
+        return res
+        '''
+
+        size = len(nums)
+        if size == 0:
+            return 0
+        sum = 0
+        max_sum = nums[0]
+        for i  in range(size):
+            sum += nums[i]
+            if sum &gt; max_sum:
+                max_sum = sum
+            if sum &lt; 0:
+                sum = 0
+        return max_sum
+</code></pre>
+<ol start="72">
+<li>编辑距离</li>
+</ol>
+<pre><code class="language-python">class Solution:
+    def minDistance(self, word1: str, word2: str) -&gt; int:
+        n1 = len(word1)
+        n2 = len(word2)
+        dp = [[0]*(n2 + 1) for _ in range(n1 + 1)]#定义二维数组dp[i][j]
+        #dp[i][j]表示使word1前i个元素与word2前j个元素相同要对word1进行的最少操作次数
+        for j in range(1, n2 + 1):
+            dp[0][j] = dp[0][j - 1] + 1#第一行
+        for i in range(1, n1 + 1):
+            dp[i][0] = dp[i - 1][0] + 1#第一列
+        for i in range(1, n1+1):
+            for j in range(1, n2+1):
+                if word1[i-1]==word2[j-1]:#注意这里要-1
+                    dp[i][j] = dp[i-1][j-1]
+                else:
+                    dp[i][j] = min(dp[i-1][j-1], dp[i-1][j], dp[i][j-1]) + 1
+        return dp[-1][-1]
+</code></pre>
+<ol start="300">
+<li>最长上升子序列</li>
+</ol>
+<pre><code class="language-python">class Solution:
+    def lengthOfLIS(self, nums: List[int]) -&gt; int:
+        size = len(nums)
+        if size &lt;= 1:
+            return size
+        #状态dp[i]表示以nums[i]结尾的递增子序列的元素最多个数
+        dp =[1] * size #初始为1,含义是每个元素都至少可以单独成为子序列
+        for i in range(1, size):
+            for j in range(i):#两层循环
+                if nums[i] &gt; nums[j]:
+                    #状态转移方程
+                    dp[i] = max(dp[i], dp[j] + 1 )#即求dp[j]+1的最大值for j in range(i)
+        return max(dp)
+#时间复杂度应该为 O(n^2)
+#动态规划+二分查找法可将时间复杂度降为O(nlogn)
+</code></pre>
+<ol start="1143">
+<li>最长公共子序列</li>
+</ol>
+<pre><code class="language-python">class Solution:
+    def longestCommonSubsequence(self, text1: str, text2: str) -&gt; int:
+        if not text1 or not text2:
+            return 0
+        m = len(text1)
+        n = len(text2)
+        dp = [[0 for _ in range(n+1)] for _ in range(m+1)]
+        for i in range(1, m+1):
+            for j in range(1, n+1):
+                if text1[i-1]==text2[j-1]:
+                    dp[i][j]=dp[i-1][j-1]+1
+                else:
+                    dp[i][j]=max(dp[i-1][j],dp[i][j-1])
+        return dp[m][n]
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://thuabc.github.io/post/sql-cha-xun-you-hua">
+              <h3 class="post-title">
+                SQL查询优化
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '',
+    clientSecret: '',
+    repo: '',
+    owner: '',
+    admin: [''],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://thuabc.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
+
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
+
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
+
+</script>
+
+      </div>
+    </div>
+  </body>
+</html>
